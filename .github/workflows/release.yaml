@@ -1,4 +1,4 @@
-# .github/workflows/release.yaml
+name: Release Go project
 
 on:
   release:
@@ -23,13 +23,19 @@ jobs:
           - goarch: arm64
             goos: windows
     steps:
-      - uses: actions/checkout@v4
-      - uses: wangyoucao577/go-release-action@v1
+      - name: Check out source code
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: ${{ matrix.goos }}
-          goarch: ${{ matrix.goarch }}
-          goversion: "https://go.dev/dl/go1.22.1.linux-amd64.tar.gz"
-          project_path: "./cmd/test-binary"
-          binary_name: "test-binary"
-          extra_files: LICENSE README.md
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22
+        id: go
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@master
+        with:
+          version: v5.0.0
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
