@@ -1,7 +1,7 @@
 builds:
   -
     ldflags:
-      - -s -w -X "main.version={{ .CurrentTag }}"
+      - -s -w -X "main.version={{ .Tag }}"
     main: main.go
     binary: tfswitch
     goos:
@@ -20,7 +20,7 @@ builds:
       - goos: windows
         goarch: arm
 checksum:
-  name_template: '{{ .ProjectName }}_{{ .CurrentTag }}_checksums.txt'
+  name_template: '{{ .ProjectName }}_{{ .Tag }}_checksums.txt'
 changelog:
   sort: asc
   filters:
