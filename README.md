@@ -324,7 +324,7 @@ jobs:
 | 1     | .tfswitch.toml        |
 | 2     | .tfswitchrc           |
 | 3     | .terraform-version    |
-| 4     | version.tf (TF Modul) |
+| 4     | version.tf (TF Module)|
 | 5     | terragrunt-hcl        |
 | 6     | Environment variable  |
 
