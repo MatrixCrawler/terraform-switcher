@@ -80,7 +80,20 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        branch: release-${{ steps.semver-tag-dry.outputs.tag }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: release-${{ steps.semver-tag-dry.outputs.tag }}
+        title: Release ${{ steps.semver-tag-dry.outputs.tag }}
+        labels: automerge
+
+    - name: Merging release PR
+      uses: "pascalgn/automerge-action@v0.16.2"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     # Introduce new tag (for real)
     - name: Bump version and push tag
