@@ -92,14 +92,9 @@ jobs:
         labels: automerge
 
     - name: Merging release PR
-      uses: reitermarkus/automerge@v2
-      with:
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        merge-method: rebase
-        do-not-merge-labels: never-merge
-        required-labels: automerge
-        pull-request: ${{ steps.cpr.outputs.pull-request-number }}
-        dry-run: false
+      run: gh pr merge --merge --auto "${{ steps.cpr.outputs.pull-request-number }}"
+      env:
+        GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     # Introduce new tag (for real)
     - name: Bump version and push tag
