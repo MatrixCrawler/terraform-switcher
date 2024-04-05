@@ -325,7 +325,7 @@ jobs:
 | 2     | .tfswitchrc           |
 | 3     | .terraform-version    |
 | 4     | version.tf (TF Module)|
-| 5     | terragrunt-hcl        |
+| 5     | terragrunt.hcl        |
 | 6     | Environment variable  |
 
 With 1 being the highest precedence and 4 the lowest   
