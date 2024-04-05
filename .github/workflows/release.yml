@@ -83,6 +83,7 @@ jobs:
         branch: release-${{ steps.semver-tag-dry.outputs.tag }}
 
     - name: Create Pull Request
+      id: cpr
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -91,9 +92,14 @@ jobs:
         labels: automerge
 
     - name: Merging release PR
-      uses: "pascalgn/automerge-action@v0.16.2"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      uses: reitermarkus/automerge@v2
+      with:
+        token: "${{ secrets.GITHUB_TOKEN }}"
+        merge-method: rebase
+        do-not-merge-labels: never-merge
+        required-labels: automerge
+        pull-request: ${{ steps.cpr.outputs.pull-request-number }}
+        dry-run: false
 
     # Introduce new tag (for real)
     - name: Bump version and push tag
