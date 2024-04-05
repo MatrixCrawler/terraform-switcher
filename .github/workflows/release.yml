@@ -132,8 +132,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install mkdocs-material
 
-    # Build WWW page
-    - name: Build page   
-      run: cd www && mkdocs gh-deploy --force
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # # Build WWW page
+    # - name: Build page   
+    #   run: cd www && mkdocs gh-deploy --force
+    #   env:
+    #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
